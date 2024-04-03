@@ -51,6 +51,22 @@ const EMPTY_SCORE = {
     }, 1000 * 60);
 
     ////////// Common ///////////
+    function loadFile(fileName) {
+        let apiUrl = 'http://localhost:8000/josekis/' + fileName;
+        fetch(apiUrl, { 
+            'method': 'GET', 
+            'mode': 'cors', 
+            'headers': { 
+                'Content-Type': 'application/json',
+            }
+        }).then(async function(response) {
+            if (response.ok) {
+                josekis = await response.json();
+                storeJoseki();
+                resetEdit();
+            }
+        });
+    }
 
     function getDate() {
         let date = new Date();
