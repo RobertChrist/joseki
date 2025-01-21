@@ -872,7 +872,7 @@ const EMPTY_SCORE = {
 
         // Half the time, white starts
         if (Math.floor(Math.random() * 2)){
-            await passMove(false);
+            await passMove(true);
         } else {
             await playAutomaticMove();
         }
@@ -928,20 +928,16 @@ const EMPTY_SCORE = {
         if (!isAutomaticMove)
             numPlayerMoves += 1;
 
-        let automaticMove = serMove(false, x,y,true);
-        let normalMove = serMove(false, x,y,false);
+        let move = serMove(false, x,y,isAutomaticMove);
 
         if (play(WGo.B, x,y)) {
-            if (automaticMove in tree) {
+            if (move in tree) {
                 // Correct move
-                tree = tree[automaticMove];
+                tree = tree[move];
                 await respond();
-            } else if (normalMove in tree) {
-                // Correct move
-                tree = tree[normalMove];
-                await respond();
-            } else{
-                fail(automaticMove); 
+            }
+             else{
+                fail(move); 
             }
         }
     }
@@ -960,19 +956,14 @@ const EMPTY_SCORE = {
         if (!isAutomaticMove)
             numPlayerMoves += 1;
 
-        let autoPass = serMove(true, null, null, true);
-        let manualPass = serMove(true, null, null, false);
+        let passMove = serMove(true, null, null, isAutomaticMove);
 
-        if (autoPass in tree) {
+        if (passMove in tree) {
             game.pass();
-            tree = tree[autoPass];
-            await respond();
-        } else if (manualPass in tree) {
-            game.pass();
-            tree = tree[manualPass];
+            tree = tree[passMove];
             await respond();
         } else {
-            fail(autoPass);
+            fail(passMove);
         }
     }
 
@@ -1075,7 +1066,6 @@ const EMPTY_SCORE = {
             await delay();
             const chosenMove = chooseRandomMove(possibleMoves);
             tree = tree[chosenMove];
-
             let m = parseMove(chosenMove);
             if (m.type == PASS){
                 pass();
