@@ -19,6 +19,12 @@ In order to see the official readme, please switch to the main or master branch.
     - Fixes Several Bugs
   - PR Status: Merged Upstream (https://github.com/milescrawford/joseki/pull/6)
 
+- **New Feature: Setup & Automatic Stones**
+  - Summary: Allows Josekis to include automatic moves by the AI
+    - Fixes Several Bugs
+    - Adds a quick unit test capability
+  - PR Status: Merged Upstream (https://github.com/milescrawford/joseki/pull/16)
+
 ### Repository Purpose
 
 I personally use this repository to study Go/Baduk/Weiqi.
